@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .sub{font:600 25px 'Microsoft YaHei','Noto Sans SC',sans-serif}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:17px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#596273}
+      .box{rx:14;stroke-width:2}
+      .arrow{stroke:#87909e;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#87909e"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="760" fill="#ffffff"/>
+  <text x="60" y="72" class="title">融合算子：减少调度与显存往返</text>
+  <text x="60" y="110" class="body">以 Add + RMSNorm 为例，中间结果越少写回 Global Memory，执行开销越低</text>
+
+  <rect x="55" y="150" width="410" height="500" rx="24" fill="#fff5f3" stroke="#ba2b1e" stroke-width="2"/>
+  <text x="85" y="198" class="sub" fill="#ba2b1e">不融合</text>
+  <text x="85" y="235" class="small">多个 kernel · 多次显存往返</text>
+  <g>
+    <rect x="115" y="275" width="290" height="48" class="box" fill="#fff" stroke="#ba2b1e"/><text x="260" y="307" text-anchor="middle" class="body">Add</text>
+    <path d="M260 323 V352" class="arrow"/><text x="280" y="345" class="small">GM</text>
+    <rect x="115" y="360" width="290" height="48" class="box" fill="#fff" stroke="#ba2b1e"/><text x="260" y="392" text-anchor="middle" class="body">Square → Mean</text>
+    <path d="M260 408 V437" class="arrow"/><text x="280" y="430" class="small">GM</text>
+    <rect x="115" y="445" width="290" height="48" class="box" fill="#fff" stroke="#ba2b1e"/><text x="260" y="477" text-anchor="middle" class="body">Sqrt → Div</text>
+    <path d="M260 493 V522" class="arrow"/><text x="280" y="515" class="small">GM</text>
+    <rect x="115" y="530" width="290" height="48" class="box" fill="#fff" stroke="#ba2b1e"/><text x="260" y="562" text-anchor="middle" class="body">Mul(weight)</text>
+  </g>
+  <text x="85" y="620" class="sub" fill="#df7c33">示例：6 个 kernel</text>
+
+  <rect x="515" y="150" width="410" height="500" rx="24" fill="#f2f5ff" stroke="#5573c8" stroke-width="2"/>
+  <text x="545" y="198" class="sub" fill="#5573c8">RMSNorm 内部融合</text>
+  <text x="545" y="235" class="small">Add 与 RMSNorm 之间仍需显存往返</text>
+  <rect x="575" y="295" width="290" height="70" class="box" fill="#fff" stroke="#5573c8"/><text x="720" y="338" text-anchor="middle" class="body">Add</text>
+  <path d="M720 365 V420" class="arrow"/><text x="745" y="405" class="small">Global Memory</text>
+  <rect x="575" y="430" width="290" height="105" class="box" fill="#fff" stroke="#5573c8"/>
+  <text x="720" y="470" text-anchor="middle" class="body">RMSNorm kernel</text>
+  <text x="720" y="505" text-anchor="middle" class="small">Square → Mean → Sqrt → Div → Mul</text>
+  <text x="545" y="620" class="sub" fill="#5573c8">示例：2 个 kernel</text>
+
+  <rect x="975" y="150" width="410" height="500" rx="24" fill="#f2fff0" stroke="#75aa48" stroke-width="2"/>
+  <text x="1005" y="198" class="sub" fill="#75aa48">Add + RMSNorm 完全融合</text>
+  <text x="1005" y="235" class="small">中间结果留在片上，只写回最终输出</text>
+  <rect x="1035" y="300" width="290" height="190" class="box" fill="#fff" stroke="#75aa48"/>
+  <text x="1180" y="347" text-anchor="middle" class="sub" fill="#75aa48">npu_add_rms_norm</text>
+  <text x="1180" y="390" text-anchor="middle" class="body">Add → Square → Mean</text>
+  <text x="1180" y="425" text-anchor="middle" class="body">→ Sqrt → Div → Mul</text>
+  <text x="1180" y="465" text-anchor="middle" class="small">片上连续计算</text>
+  <path d="M1180 490 V545" class="arrow"/>
+  <text x="1180" y="580" text-anchor="middle" class="body">最终结果 → Global Memory</text>
+  <text x="1005" y="620" class="sub" fill="#75aa48">示例：1 个 kernel</text>
+  <line x1="55" y1="690" x2="1385" y2="690" stroke="#ba2b1e" stroke-width="5"/>
+  <text x="720" y="730" text-anchor="middle" class="body">核心：少启动 kernel · 少写中间结果 · 少访问 Global Memory</text>
+</svg>

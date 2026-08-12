@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .sub{font:600 26px 'Microsoft YaHei','Noto Sans SC',sans-serif}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:18px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#626b79}
+      .arrow{stroke:#87909e;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#87909e"/></marker>
+  </defs>
+  <rect width="1440" height="760" fill="#fff"/>
+  <text x="55" y="72" class="title">KV Cache 与多卡并行优化</text>
+
+  <rect x="55" y="120" width="640" height="540" rx="24" fill="#f2f5ff" stroke="#5573c8" stroke-width="2"/>
+  <text x="90" y="172" class="sub" fill="#5573c8">KV Cache：分配方式 + 存储精度</text>
+  <text x="90" y="218" class="body">Paged Attention：解决“怎么管”</text>
+  <text x="90" y="253" class="small">逻辑连续，物理显存按固定 page 按需分配</text>
+  <g>
+    <rect x="90" y="290" width="90" height="58" rx="6" fill="#5573c8"/><text x="135" y="326" text-anchor="middle" fill="#fff" class="small">Req1-1</text>
+    <rect x="190" y="290" width="90" height="58" rx="6" fill="#5573c8"/><text x="235" y="326" text-anchor="middle" fill="#fff" class="small">Req1-2</text>
+    <rect x="290" y="290" width="90" height="58" rx="6" fill="#75aa48"/><text x="335" y="326" text-anchor="middle" fill="#fff" class="small">Req2-1</text>
+    <rect x="390" y="290" width="90" height="58" rx="6" fill="#ddd"/><text x="435" y="326" text-anchor="middle" class="small">空闲</text>
+    <rect x="490" y="290" width="90" height="58" rx="6" fill="#75aa48"/><text x="535" y="326" text-anchor="middle" fill="#fff" class="small">Req2-2</text>
+  </g>
+  <text x="90" y="405" class="body">KV Cache量化：解决“占多少”</text>
+  <rect x="90" y="445" width="480" height="54" rx="7" fill="#ba2b1e"/><text x="330" y="480" text-anchor="middle" fill="#fff" class="body">FP16：16 bit × 2（K+V）= 32 bit</text>
+  <rect x="90" y="515" width="250" height="54" rx="7" fill="#75aa48"/><text x="215" y="550" text-anchor="middle" fill="#fff" class="body">INT8：8 bit × 2 = 16 bit</text>
+  <path d="M350 542 H480" class="arrow"/><text x="505" y="550" class="sub" fill="#75aa48">理论减半</text>
+  <text x="90" y="620" class="small">权衡：精度越低，显存越省，但可能影响长文本质量</text>
+
+  <rect x="745" y="120" width="640" height="540" rx="24" fill="#fff8f0" stroke="#df7c33" stroke-width="2"/>
+  <text x="780" y="172" class="sub" fill="#df7c33">多卡并行：矩阵切分 + 多卡协同</text>
+  <text x="780" y="218" class="body">大矩阵拆成小矩阵，每张卡只保存和计算一部分</text>
+  <rect x="790" y="275" width="180" height="95" rx="12" fill="#f2f5ff" stroke="#5573c8" stroke-width="2"/><text x="880" y="315" text-anchor="middle" class="body">Card 0</text><text x="880" y="345" text-anchor="middle" class="small">X × W₀ → Y₀</text>
+  <rect x="1020" y="275" width="180" height="95" rx="12" fill="#f2f5ff" stroke="#5573c8" stroke-width="2"/><text x="1110" y="315" text-anchor="middle" class="body">Card 1</text><text x="1110" y="345" text-anchor="middle" class="small">X × W₁ → Y₁</text>
+  <path d="M970 322 H1010" class="arrow"/>
+  <path d="M880 370 V420 H990" class="arrow"/>
+  <path d="M1110 370 V420 H1010" class="arrow"/>
+  <rect x="925" y="430" width="140" height="60" rx="10" fill="#f2fff0" stroke="#75aa48" stroke-width="2"/><text x="995" y="468" text-anchor="middle" class="body">拼接 / 求和</text>
+  <text x="780" y="545" class="body">常见策略：DP · SP · TP · PP · EP</text>
+  <text x="780" y="585" class="small">TP切分权重或Attention Head，EP切分MoE Expert</text>
+  <text x="780" y="625" class="small">多流可让Cube计算与HCCL通信重叠，隐藏通信延迟</text>
+  <line x1="55" y1="705" x2="1385" y2="705" stroke="#ba2b1e" stroke-width="5"/>
+  <text x="720" y="744" text-anchor="middle" class="body">优化目标：用更少显存管理更多状态，用多张卡分担容量与计算压力</text>
+</svg>
