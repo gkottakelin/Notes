@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="740" viewBox="0 0 1440 740">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .label{font:700 23px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:17px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#9aa2af"/></marker>
+  </defs>
+  <rect width="1440" height="740" fill="#fff"/>
+  <text x="60" y="70" class="title">非对称 INT8：用 zero-point 平移整数零点</text>
+  <text x="60" y="108" class="body">浮点范围 [−7.59, 10.8] 不以 0 对称，用完整的 256 个整数等级覆盖实际范围</text>
+
+  <text x="75" y="190" class="label" fill="#8051d6">浮点数轴</text>
+  <line x1="185" y1="230" x2="1290" y2="230" stroke="#8c4fe0" stroke-width="10" opacity=".25"/>
+  <line x1="185" y1="230" x2="1290" y2="230" stroke="#343a46" stroke-width="3"/>
+  <g stroke="#343a46" stroke-width="2"><line x1="185" y1="210" x2="185" y2="250"/><line x1="641" y1="204" x2="641" y2="256"/><line x1="1290" y1="210" x2="1290" y2="250"/></g>
+  <text x="185" y="283" text-anchor="middle" class="body">min = −7.59</text><text x="641" y="283" text-anchor="middle" class="body" fill="#5573c8">真实值 0</text><text x="1290" y="283" text-anchor="middle" class="body">max = 10.8</text>
+  <g fill="#8e4ddd" stroke="#fff" stroke-width="3"><circle cx="185" cy="230" r="12" fill="#78a949"/><circle cx="367" cy="230" r="12"/><circle cx="524" cy="230" r="12"/><circle cx="641" cy="230" r="12"/><circle cx="826" cy="230" r="12"/><circle cx="970" cy="230" r="12"/><circle cx="1290" cy="230" r="12" fill="#56c4d8"/></g>
+  <g class="small" text-anchor="middle"><text x="367" y="198">−4.57</text><text x="524" y="198">−1.95</text><text x="826" y="198">3.08</text><text x="970" y="198">5.47</text></g>
+
+  <g stroke="#b8bec8" stroke-width="2" marker-end="url(#arrow)" opacity=".85">
+    <path d="M185 250L185 435"/><path d="M367 250L367 435"/><path d="M524 250L524 435"/><path d="M641 250L641 435"/><path d="M826 250L826 435"/><path d="M970 250L970 435"/><path d="M1290 250L1290 435"/>
+  </g>
+
+  <text x="75" y="435" class="label" fill="#c24d76">INT8 数轴</text>
+  <line x1="185" y1="475" x2="1290" y2="475" stroke="#d9587e" stroke-width="10" opacity=".22"/>
+  <line x1="185" y1="475" x2="1290" y2="475" stroke="#343a46" stroke-width="3"/>
+  <g stroke="#343a46" stroke-width="2"><line x1="185" y1="455" x2="185" y2="495"/><line x1="641" y1="449" x2="641" y2="501"/><line x1="1290" y1="455" x2="1290" y2="495"/></g>
+  <text x="185" y="525" text-anchor="middle" class="body">−128</text><text x="641" y="525" text-anchor="middle" class="body" fill="#5573c8">zero-point = −23</text><text x="1290" y="525" text-anchor="middle" class="body">127</text>
+  <g fill="#ca4f77" stroke="#fff" stroke-width="3"><circle cx="185" cy="475" r="12"/><circle cx="367" cy="475" r="12"/><circle cx="524" cy="475" r="12"/><circle cx="641" cy="475" r="12" fill="#5573c8"/><circle cx="826" cy="475" r="12"/><circle cx="970" cy="475" r="12"/><circle cx="1290" cy="475" r="12"/></g>
+  <g class="small" text-anchor="middle"><text x="185" y="560">−128</text><text x="367" y="560">−86</text><text x="524" y="560">−50</text><text x="641" y="560">−23</text><text x="826" y="560">20</text><text x="970" y="560">53</text><text x="1290" y="560">127</text></g>
+
+  <text x="720" y="635" text-anchor="middle" class="label" fill="#5573c8">scale = (10.8 − (−7.59)) / 255 ≈ 0.0721</text>
+  <text x="720" y="680" text-anchor="middle" class="body">量化：q = round(x / scale) + zero-point　　反量化：x̂ = (q − zero-point) × scale</text>
+  <text x="720" y="715" text-anchor="middle" class="small">关键直觉：真实值 0 映射到整数 −23，而不是整数 0</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .head{font:700 26px 'Microsoft YaHei','Noto Sans SC',sans-serif}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:17px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+    </style>
+  </defs>
+  <rect width="1440" height="760" fill="#fff"/>
+  <text x="60" y="70" class="title">量化误差来自哪里</text>
+  <text x="60" y="108" class="body">量化算法的核心工作，是控制舍入、截断和离群值造成的信息损失</text>
+
+  <g transform="translate(70 165)">
+    <text x="180" y="0" text-anchor="middle" class="head" fill="#ba2b1e">① Round：落到最近格点</text>
+    <line x1="20" y1="205" x2="340" y2="205" stroke="#343a46" stroke-width="3"/>
+    <g stroke="#343a46" stroke-width="2"><line x1="40" y1="190" x2="40" y2="220"/><line x1="110" y1="190" x2="110" y2="220"/><line x1="180" y1="190" x2="180" y2="220"/><line x1="250" y1="190" x2="250" y2="220"/><line x1="320" y1="190" x2="320" y2="220"/></g>
+    <path d="M40 170H75V130H145V90H215V50H285V20H330" fill="none" stroke="#ba2b1e" stroke-width="5"/>
+    <circle cx="155" cy="118" r="10" fill="#8c4fe0"/><path d="M155 118L180 190" stroke="#9aa2af" stroke-width="2" stroke-dasharray="5 5"/>
+    <text x="155" y="145" text-anchor="middle" class="small">真实值</text><text x="180" y="250" text-anchor="middle" class="small">最近格点</text>
+    <text x="180" y="305" text-anchor="middle" class="body">格距越大，舍入误差上限越大</text>
+  </g>
+
+  <g transform="translate(540 165)">
+    <text x="180" y="0" text-anchor="middle" class="head" fill="#5573c8">② Clip：超出范围被压到边界</text>
+    <line x1="20" y1="205" x2="340" y2="205" stroke="#343a46" stroke-width="3"/>
+    <line x1="75" y1="180" x2="75" y2="230" stroke="#5573c8" stroke-width="4"/><line x1="285" y1="180" x2="285" y2="230" stroke="#5573c8" stroke-width="4"/>
+    <text x="75" y="260" text-anchor="middle" class="small">qmin</text><text x="285" y="260" text-anchor="middle" class="small">qmax</text>
+    <g fill="#8c4fe0"><circle cx="105" cy="205" r="9"/><circle cx="145" cy="205" r="9"/><circle cx="190" cy="205" r="9"/><circle cx="240" cy="205" r="9"/></g>
+    <circle cx="335" cy="100" r="12" fill="#ba2b1e"/><path d="M335 112L285 188" stroke="#ba2b1e" stroke-width="3" stroke-dasharray="7 5"/>
+    <text x="335" y="72" text-anchor="middle" class="small">超范围值</text>
+    <text x="180" y="305" text-anchor="middle" class="body">范围估计过小会放大截断误差</text>
+  </g>
+
+  <g transform="translate(1010 165)">
+    <text x="180" y="0" text-anchor="middle" class="head" fill="#78a949">③ Outlier：少数大值拉伸范围</text>
+    <line x1="15" y1="205" x2="350" y2="205" stroke="#343a46" stroke-width="3"/>
+    <path d="M40 205C95 200 110 120 180 110C250 120 260 200 315 205" fill="#cfa9f2" opacity=".55" stroke="#8c4fe0" stroke-width="3"/>
+    <g fill="#8c4fe0"><circle cx="125" cy="170" r="8"/><circle cx="150" cy="135" r="8"/><circle cx="180" cy="112" r="8"/><circle cx="210" cy="135" r="8"/><circle cx="235" cy="170" r="8"/></g>
+    <circle cx="345" cy="205" r="12" fill="#ba2b1e"/><text x="345" y="172" text-anchor="middle" class="small">outlier</text>
+    <g stroke="#b8bec8" stroke-width="1.5"><line x1="125" y1="178" x2="176" y2="260"/><line x1="150" y1="143" x2="178" y2="260"/><line x1="180" y1="120" x2="180" y2="260"/><line x1="210" y1="143" x2="182" y2="260"/><line x1="235" y1="178" x2="184" y2="260"/></g>
+    <line x1="60" y1="275" x2="300" y2="275" stroke="#343a46" stroke-width="3"/>
+    <circle cx="180" cy="275" r="11" fill="#ca4f77"/><circle cx="300" cy="275" r="11" fill="#ba2b1e"/>
+    <text x="180" y="305" text-anchor="middle" class="small">普通值挤在少数格点</text>
+  </g>
+
+  <line x1="60" y1="570" x2="1380" y2="570" stroke="#ba2b1e" stroke-width="4"/>
+  <text x="720" y="625" text-anchor="middle" class="head" fill="#343a46">应对思路：更细粒度 scale · 合理校准范围 · 平滑/旋转离群值 · 误差补偿</text>
+  <text x="720" y="675" text-anchor="middle" class="body">同样的 bit 数，量化参数和算法不同，最终精度可能相差很大</text>
+</svg>

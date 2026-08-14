@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .label{font:700 23px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:18px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+      .s{font:700 15px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="60" y="70" class="title">量化粒度：哪些值共享同一个 scale</text>
+  <text x="60" y="108" class="small">颜色相同的格子共享量化参数；粒度越细通常误差越小，但 scale 数量和实现复杂度更高</text>
+
+  <g transform="translate(70 165)">
+    <text x="105" y="0" text-anchor="middle" class="label">per-tensor</text>
+    <g fill="#9b55eb" stroke="#fff" stroke-width="2">
+      <rect x="0" y="35" width="52" height="52"/><rect x="52" y="35" width="52" height="52"/><rect x="104" y="35" width="52" height="52"/><rect x="156" y="35" width="52" height="52"/>
+      <rect x="0" y="87" width="52" height="52"/><rect x="52" y="87" width="52" height="52"/><rect x="104" y="87" width="52" height="52"/><rect x="156" y="87" width="52" height="52"/>
+      <rect x="0" y="139" width="52" height="52"/><rect x="52" y="139" width="52" height="52"/><rect x="104" y="139" width="52" height="52"/><rect x="156" y="139" width="52" height="52"/>
+      <rect x="0" y="191" width="52" height="52"/><rect x="52" y="191" width="52" height="52"/><rect x="104" y="191" width="52" height="52"/><rect x="156" y="191" width="52" height="52"/>
+    </g>
+    <circle cx="25" cy="280" r="17" fill="#62b7b0"/><text x="25" y="286" text-anchor="middle" class="s">s</text>
+    <text x="105" y="330" text-anchor="middle" class="small">整个张量 1 个 scale</text>
+  </g>
+
+  <g transform="translate(345 165)">
+    <text x="105" y="0" text-anchor="middle" class="label">per-token</text>
+    <g stroke="#fff" stroke-width="2">
+      <g fill="#8a4de0"><rect x="0" y="35" width="52" height="52"/><rect x="52" y="35" width="52" height="52"/><rect x="104" y="35" width="52" height="52"/><rect x="156" y="35" width="52" height="52"/></g>
+      <g fill="#b56bea"><rect x="0" y="87" width="52" height="52"/><rect x="52" y="87" width="52" height="52"/><rect x="104" y="87" width="52" height="52"/><rect x="156" y="87" width="52" height="52"/></g>
+      <g fill="#785fd4"><rect x="0" y="139" width="52" height="52"/><rect x="52" y="139" width="52" height="52"/><rect x="104" y="139" width="52" height="52"/><rect x="156" y="139" width="52" height="52"/></g>
+      <g fill="#a34bd7"><rect x="0" y="191" width="52" height="52"/><rect x="52" y="191" width="52" height="52"/><rect x="104" y="191" width="52" height="52"/><rect x="156" y="191" width="52" height="52"/></g>
+    </g>
+    <g fill="#62b7b0"><circle cx="235" cy="61" r="14"/><circle cx="235" cy="113" r="14"/><circle cx="235" cy="165" r="14"/><circle cx="235" cy="217" r="14"/></g>
+    <text x="105" y="330" text-anchor="middle" class="small">每个 token / 每行 1 个 scale</text>
+  </g>
+
+  <g transform="translate(655 165)">
+    <text x="105" y="0" text-anchor="middle" class="label">per-channel</text>
+    <g stroke="#fff" stroke-width="2">
+      <g fill="#8648d9"><rect x="0" y="35" width="52" height="52"/><rect x="0" y="87" width="52" height="52"/><rect x="0" y="139" width="52" height="52"/><rect x="0" y="191" width="52" height="52"/></g>
+      <g fill="#a660e1"><rect x="52" y="35" width="52" height="52"/><rect x="52" y="87" width="52" height="52"/><rect x="52" y="139" width="52" height="52"/><rect x="52" y="191" width="52" height="52"/></g>
+      <g fill="#765ad0"><rect x="104" y="35" width="52" height="52"/><rect x="104" y="87" width="52" height="52"/><rect x="104" y="139" width="52" height="52"/><rect x="104" y="191" width="52" height="52"/></g>
+      <g fill="#b85be6"><rect x="156" y="35" width="52" height="52"/><rect x="156" y="87" width="52" height="52"/><rect x="156" y="139" width="52" height="52"/><rect x="156" y="191" width="52" height="52"/></g>
+    </g>
+    <g fill="#62b7b0"><circle cx="26" cy="270" r="14"/><circle cx="78" cy="270" r="14"/><circle cx="130" cy="270" r="14"/><circle cx="182" cy="270" r="14"/></g>
+    <text x="105" y="330" text-anchor="middle" class="small">每个输出通道 / 每列 1 个 scale</text>
+  </g>
+
+  <g transform="translate(955 165)">
+    <text x="105" y="0" text-anchor="middle" class="label">per-group</text>
+    <g stroke="#fff" stroke-width="2">
+      <g fill="#8e4ddb"><rect x="0" y="35" width="104" height="104"/><rect x="104" y="35" width="104" height="104"/></g>
+      <g fill="#b55ee2"><rect x="0" y="139" width="104" height="104"/></g>
+      <g fill="#7358cc"><rect x="104" y="139" width="104" height="104"/></g>
+    </g>
+    <g fill="#62b7b0"><circle cx="52" cy="270" r="14"/><circle cx="156" cy="270" r="14"/></g>
+    <text x="105" y="330" text-anchor="middle" class="small">每组若干元素 1 个 scale</text>
+  </g>
+
+  <g transform="translate(1210 165)">
+    <text x="80" y="0" text-anchor="middle" class="label">per-block</text>
+    <g stroke="#fff" stroke-width="2">
+      <rect x="0" y="35" width="80" height="80" fill="#884adb"/><rect x="80" y="35" width="80" height="80" fill="#aa61e4"/>
+      <rect x="0" y="115" width="80" height="80" fill="#7455cf"/><rect x="80" y="115" width="80" height="80" fill="#bd6de9"/>
+      <rect x="0" y="195" width="80" height="48" fill="#9a54dc"/><rect x="80" y="195" width="80" height="48" fill="#8066d3"/>
+    </g>
+    <g fill="#62b7b0"><circle cx="40" cy="270" r="14"/><circle cx="120" cy="270" r="14"/></g>
+    <text x="80" y="330" text-anchor="middle" class="small">固定二维块 1 个 scale</text>
+  </g>
+
+  <line x1="60" y1="570" x2="1380" y2="570" stroke="#ba2b1e" stroke-width="4"/>
+  <text x="60" y="620" class="label" fill="#5573c8">粗粒度</text><text x="185" y="620" class="body">参数少、实现简单</text>
+  <path d="M420 612H970" stroke="#798292" stroke-width="3"/>
+  <text x="1040" y="620" class="label" fill="#78a949">细粒度</text><text x="1170" y="620" class="body">误差通常更小</text>
+</svg>

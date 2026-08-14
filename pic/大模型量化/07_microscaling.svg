@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .head{font:700 26px 'Microsoft YaHei','Noto Sans SC',sans-serif}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:17px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+    </style>
+  </defs>
+  <rect width="1440" height="680" fill="#fff"/>
+  <text x="60" y="70" class="title">Microscaling：小块数据共享一个局部 scale</text>
+  <text x="60" y="108" class="body">MXFP8 / MXFP4 将张量切成固定大小的 block；不同 block 用不同 scale，适应局部动态范围</text>
+
+  <text x="80" y="190" class="head" fill="#ba2b1e">单一 scale</text>
+  <text x="80" y="225" class="small">一个极端值会拉大整个张量的范围</text>
+  <g transform="translate(80 260)" stroke="#fff" stroke-width="2">
+    <g fill="#9d58e8"><rect x="0" y="0" width="55" height="55"/><rect x="55" y="0" width="55" height="55"/><rect x="110" y="0" width="55" height="55"/><rect x="165" y="0" width="55" height="55"/><rect x="220" y="0" width="55" height="55"/><rect x="275" y="0" width="55" height="55"/><rect x="330" y="0" width="55" height="55"/><rect x="385" y="0" width="55" height="55"/></g>
+    <rect x="385" y="0" width="55" height="55" fill="#56c4d8"/>
+  </g>
+  <path d="M80 355H520" stroke="#5573c8" stroke-width="7"/>
+  <text x="300" y="395" text-anchor="middle" class="small">全局 scale：由最大绝对值决定</text>
+
+  <text x="760" y="190" class="head" fill="#78a949">block-wise scale</text>
+  <text x="760" y="225" class="small">每个小块独立缩放，极端值只影响所在 block</text>
+  <g transform="translate(760 260)" stroke="#fff" stroke-width="2">
+    <g fill="#8a4ddd"><rect x="0" y="0" width="55" height="55"/><rect x="55" y="0" width="55" height="55"/><rect x="110" y="0" width="55" height="55"/><rect x="165" y="0" width="55" height="55"/></g>
+    <g fill="#b567e6"><rect x="220" y="0" width="55" height="55"/><rect x="275" y="0" width="55" height="55"/><rect x="330" y="0" width="55" height="55"/><rect x="385" y="0" width="55" height="55"/></g>
+    <rect x="385" y="0" width="55" height="55" fill="#56c4d8"/>
+  </g>
+  <path d="M760 355H980" stroke="#5573c8" stroke-width="7"/><path d="M980 355H1200" stroke="#78a949" stroke-width="7"/>
+  <text x="870" y="395" text-anchor="middle" class="small">scale₁</text><text x="1090" y="395" text-anchor="middle" class="small">scale₂</text>
+
+  <g transform="translate(180 500)">
+    <text x="0" y="0" class="head" fill="#5573c8">MXFP8</text><text x="150" y="0" class="body">FP8 元素 + block 共享 E8M0 scale</text>
+  </g>
+  <g transform="translate(780 500)">
+    <text x="0" y="0" class="head" fill="#78a949">MXFP4</text><text x="150" y="0" class="body">FP4 E2M1 元素 + block 共享 E8M0 scale</text>
+  </g>
+  <line x1="60" y1="565" x2="1380" y2="565" stroke="#ba2b1e" stroke-width="4"/>
+  <text x="720" y="620" text-anchor="middle" class="body">OCP MX v1.0 的标准 block 大小为 32；是否加速取决于硬件与算子是否原生支持</text>
+</svg>

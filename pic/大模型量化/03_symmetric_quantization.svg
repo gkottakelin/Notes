@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .label{font:700 23px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:17px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+      .value{font:700 16px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#fff}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#9aa2af"/></marker>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="60" y="70" class="title">对称 INT8：让浮点 0 与整数 0 对齐</text>
+  <text x="60" y="108" class="body">范围由绝对值最大的数决定，正负两侧使用同一个 scale，不需要 zero-point</text>
+
+  <text x="75" y="190" class="label" fill="#8051d6">浮点数轴</text>
+  <line x1="180" y1="230" x2="1290" y2="230" stroke="#8c4fe0" stroke-width="10" opacity=".25"/>
+  <line x1="180" y1="230" x2="1290" y2="230" stroke="#343a46" stroke-width="3"/>
+  <g stroke="#343a46" stroke-width="2">
+    <line x1="180" y1="212" x2="180" y2="248"/><line x1="735" y1="206" x2="735" y2="254"/><line x1="1290" y1="212" x2="1290" y2="248"/>
+  </g>
+  <text x="180" y="280" text-anchor="middle" class="body">−10.8</text><text x="735" y="280" text-anchor="middle" class="body">0</text><text x="1290" y="280" text-anchor="middle" class="body">10.8</text>
+  <g fill="#8e4ddd" stroke="#fff" stroke-width="3">
+    <circle cx="345" cy="230" r="12"/><circle cx="500" cy="230" r="12"/><circle cx="635" cy="230" r="12"/><circle cx="735" cy="230" r="12"/><circle cx="893" cy="230" r="12"/><circle cx="1016" cy="230" r="12"/><circle cx="1290" cy="230" r="12" fill="#56c4d8"/>
+  </g>
+  <g class="small" text-anchor="middle"><text x="345" y="198">−7.59</text><text x="500" y="198">−4.57</text><text x="635" y="198">−1.95</text><text x="893" y="198">3.08</text><text x="1016" y="198">5.47</text></g>
+
+  <g stroke="#b8bec8" stroke-width="2" marker-end="url(#arrow)" opacity=".85">
+    <path d="M345 250L345 430"/><path d="M500 250L500 430"/><path d="M635 250L635 430"/><path d="M735 250L735 430"/><path d="M893 250L893 430"/><path d="M1016 250L1016 430"/><path d="M1290 250L1290 430"/>
+  </g>
+
+  <text x="75" y="430" class="label" fill="#c24d76">INT8 数轴</text>
+  <line x1="180" y1="470" x2="1290" y2="470" stroke="#d9587e" stroke-width="10" opacity=".22"/>
+  <line x1="180" y1="470" x2="1290" y2="470" stroke="#343a46" stroke-width="3"/>
+  <g stroke="#343a46" stroke-width="2"><line x1="180" y1="452" x2="180" y2="488"/><line x1="735" y1="446" x2="735" y2="494"/><line x1="1290" y1="452" x2="1290" y2="488"/></g>
+  <text x="180" y="520" text-anchor="middle" class="body">−127</text><text x="735" y="520" text-anchor="middle" class="body">0</text><text x="1290" y="520" text-anchor="middle" class="body">127</text>
+  <g fill="#ca4f77" stroke="#fff" stroke-width="3"><circle cx="345" cy="470" r="12"/><circle cx="500" cy="470" r="12"/><circle cx="635" cy="470" r="12"/><circle cx="735" cy="470" r="12"/><circle cx="893" cy="470" r="12"/><circle cx="1016" cy="470" r="12"/><circle cx="1290" cy="470" r="12"/></g>
+  <g class="small" text-anchor="middle"><text x="345" y="555">−89</text><text x="500" y="555">−54</text><text x="635" y="555">−23</text><text x="735" y="555">0</text><text x="893" y="555">36</text><text x="1016" y="555">64</text><text x="1290" y="555">127</text></g>
+
+  <text x="720" y="625" text-anchor="middle" class="label" fill="#5573c8">scale = 10.8 / 127 ≈ 0.085</text>
+  <text x="720" y="665" text-anchor="middle" class="body">量化：q = round(x / scale)　　反量化：x̂ = q × scale</text>
+</svg>

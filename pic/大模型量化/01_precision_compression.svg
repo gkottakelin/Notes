@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .body{font:22px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:18px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+      .num{font:700 30px 'Microsoft YaHei','Noto Sans SC',sans-serif}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#798292"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="680" fill="#fff"/>
+  <text x="60" y="70" class="title">降低位宽：同一份权重需要搬运更少数据</text>
+  <text x="60" y="108" class="body">以 235B 参数为例，仅计算权重本体；实际部署还要考虑量化参数、元数据和运行时缓存</text>
+
+  <text x="90" y="190" class="num" fill="#ba2b1e">BF16 · 16 bit</text>
+  <g fill="#d66b61" stroke="#fff" stroke-width="2">
+    <rect x="90" y="220" width="72" height="72"/><rect x="162" y="220" width="72" height="72"/><rect x="234" y="220" width="72" height="72"/><rect x="306" y="220" width="72" height="72"/>
+    <rect x="378" y="220" width="72" height="72"/><rect x="450" y="220" width="72" height="72"/><rect x="522" y="220" width="72" height="72"/><rect x="594" y="220" width="72" height="72"/>
+    <rect x="666" y="220" width="72" height="72"/><rect x="738" y="220" width="72" height="72"/><rect x="810" y="220" width="72" height="72"/><rect x="882" y="220" width="72" height="72"/>
+    <rect x="954" y="220" width="72" height="72"/><rect x="1026" y="220" width="72" height="72"/><rect x="1098" y="220" width="72" height="72"/><rect x="1170" y="220" width="72" height="72"/>
+  </g>
+  <text x="1280" y="267" class="num" fill="#ba2b1e">≈ 470 GB</text>
+
+  <text x="90" y="365" class="num" fill="#5573c8">INT8 · 8 bit</text>
+  <g fill="#7189d1" stroke="#fff" stroke-width="2">
+    <rect x="90" y="395" width="72" height="72"/><rect x="162" y="395" width="72" height="72"/><rect x="234" y="395" width="72" height="72"/><rect x="306" y="395" width="72" height="72"/>
+    <rect x="378" y="395" width="72" height="72"/><rect x="450" y="395" width="72" height="72"/><rect x="522" y="395" width="72" height="72"/><rect x="594" y="395" width="72" height="72"/>
+  </g>
+  <text x="1280" y="442" class="num" fill="#5573c8">≈ 235 GB</text>
+  <path d="M900 430H1230" stroke="#798292" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="1010" y="410" class="small">体积约减半</text>
+
+  <text x="90" y="540" class="num" fill="#78a949">INT4 · 4 bit</text>
+  <g fill="#94bf69" stroke="#fff" stroke-width="2">
+    <rect x="90" y="570" width="72" height="72"/><rect x="162" y="570" width="72" height="72"/><rect x="234" y="570" width="72" height="72"/><rect x="306" y="570" width="72" height="72"/>
+  </g>
+  <text x="1280" y="617" class="num" fill="#78a949">≈ 117.5 GB</text>
+  <path d="M610 605H1230" stroke="#798292" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="850" y="585" class="small">体积约为 BF16 的 1/4</text>
+</svg>

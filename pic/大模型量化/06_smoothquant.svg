@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720">
+  <defs>
+    <style>
+      .title{font:700 40px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#292d35}
+      .head{font:700 26px 'Microsoft YaHei','Noto Sans SC',sans-serif}
+      .body{font:20px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#343a46}
+      .small{font:17px 'Microsoft YaHei','Noto Sans SC',sans-serif;fill:#687184}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#798292"/></marker>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="60" y="70" class="title">SmoothQuant：把激活的量化难度迁移给权重</text>
+  <text x="60" y="108" class="body">通过数学等价缩放压低激活离群值，同时放大对应权重通道，矩阵乘法结果保持不变</text>
+
+  <text x="270" y="175" text-anchor="middle" class="head" fill="#ba2b1e">变换前：激活有离群值</text>
+  <line x1="80" y1="480" x2="470" y2="480" stroke="#343a46" stroke-width="3"/>
+  <g fill="#8c4fe0"><rect x="100" y="400" width="38" height="80"/><rect x="155" y="420" width="38" height="60"/><rect x="210" y="385" width="38" height="95"/><rect x="265" y="410" width="38" height="70"/><rect x="320" y="425" width="38" height="55"/><rect x="375" y="205" width="38" height="275" fill="#ba2b1e"/></g>
+  <text x="394" y="190" text-anchor="middle" class="small">outlier</text>
+  <text x="270" y="525" text-anchor="middle" class="small">Activation X：难量化</text>
+
+  <path d="M500 335H650" stroke="#798292" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="575" y="300" text-anchor="middle" class="head" fill="#78a949">平滑迁移</text>
+  <text x="575" y="375" text-anchor="middle" class="body">X' = X / s</text>
+  <text x="575" y="410" text-anchor="middle" class="body">W' = s · W</text>
+
+  <text x="840" y="175" text-anchor="middle" class="head" fill="#5573c8">变换后：激活范围变平滑</text>
+  <line x1="650" y1="480" x2="1030" y2="480" stroke="#343a46" stroke-width="3"/>
+  <g fill="#5573c8"><rect x="675" y="360" width="38" height="120"/><rect x="730" y="380" width="38" height="100"/><rect x="785" y="345" width="38" height="135"/><rect x="840" y="370" width="38" height="110"/><rect x="895" y="385" width="38" height="95"/><rect x="950" y="335" width="38" height="145"/></g>
+  <text x="840" y="525" text-anchor="middle" class="small">Activation X'：更容易使用 INT8</text>
+
+  <text x="1215" y="175" text-anchor="middle" class="head" fill="#78a949">对应权重通道被放大</text>
+  <line x1="1090" y1="480" x2="1350" y2="480" stroke="#343a46" stroke-width="3"/>
+  <g fill="#78a949"><rect x="1110" y="405" width="32" height="75"/><rect x="1155" y="390" width="32" height="90"/><rect x="1200" y="415" width="32" height="65"/><rect x="1245" y="395" width="32" height="85"/><rect x="1290" y="250" width="32" height="230"/></g>
+  <text x="1215" y="525" text-anchor="middle" class="small">Weight W'：权重通常更易量化</text>
+
+  <line x1="60" y1="580" x2="1380" y2="580" stroke="#ba2b1e" stroke-width="4"/>
+  <text x="720" y="635" text-anchor="middle" class="head" fill="#343a46">Y = XW = (X / s)(sW) = X'W'</text>
+  <text x="720" y="680" text-anchor="middle" class="body">不改变浮点模型的输出，只重新分配量化难度</text>
+</svg>
