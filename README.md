@@ -1,6 +1,6 @@
 # Notes
 
-记录大模型基础、推理优化与量化等方向的学习笔记，内容持续更新。
+记录大模型基础、推理优化、量化与性能分析等方向的学习笔记，内容持续更新。
 
 ## 内容目录
 
@@ -17,6 +17,10 @@
    - 对称与非对称量化、量化粒度和误差来源
    - W8A8、SmoothQuant、PTQ与QAT
    - GPTQ、AWQ、QuaRot、MXFP8与MXFP4
+5. [大模型Profiling与性能瓶颈定位](./5.大模型profiling与性能瓶颈定位/大模型profiling与性能瓶颈定位.md)
+   - Baseline、核心指标与标准分析工作流
+   - op_statistic、kernel_details与trace_view
+   - Prefill/Decode分阶段分析与常见瓶颈定位
 
 ## 文件夹结构
 
@@ -29,6 +33,8 @@ Notes/
 │   └── 大模型推理优化基础.md
 ├── 4.大模型量化/
 │   └── 大模型量化基础.md
+├── 5.大模型profiling与性能瓶颈定位/
+│   └── 大模型profiling与性能瓶颈定位.md
 ├── pic/
 │   ├── 大模型基础知识/
 │   │   ├── transformer_block.png
